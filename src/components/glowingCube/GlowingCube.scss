@@ -73,11 +73,11 @@
     transform: translateX(100px) rotateY(90deg);
 }
 
-.glowingCube:hover > .glowingBottom {
+.glowingCube:hover > .glowingBottom, .glowingCube:active > .glowingBottom{
     animation: openBox 1s forwards;
 }
 
-.glowingCube:hover > .glowingLiftableTurnalble {
+.glowingCube:hover > .glowingLiftableTurnalble, .glowingCube:active > .glowingLiftableTurnalble{
     animation: liftAndTurn 1s forwards;
 }
 
