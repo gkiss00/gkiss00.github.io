@@ -1,0 +1,43 @@
+.aboutMePage {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: var(--color-white);
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.aboutMeSection {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pacrousSection {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+
+
+.aboutMePage p{
+    color: var(--color-dark-black);
+}
+
+.profilePicure {
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    border: 5px grey solid;
+}
+
+#aboutMeDescription {
+    max-width: 1000px;
+}

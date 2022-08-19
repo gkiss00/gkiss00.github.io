@@ -1,0 +1,29 @@
+.info {
+    min-width: 200px;
+    color: var(--color-dark-black);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.info > h2 {
+    border-bottom: 1px var(--color-tiffany-blue) solid;
+    margin-bottom: 10px;
+}
+
+.info > ul {
+    overflow: hidden;
+}
+
+.info ul li{
+    overflow: hidden;
+    position: relative;
+}
+
+.info ul > li{
+    animation: testAppear 4s forwards;
+}
+
+@keyframes testAppear {
+    from {transform: translateY(-100px);}
+    to {transform: translateY(0px);}
+}

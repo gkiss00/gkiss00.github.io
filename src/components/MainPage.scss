@@ -1,0 +1,48 @@
+#parent {
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    animation: tournerZ;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 500px;
+    //transform-style: preserve-3d
+}
+
+#child {
+    height: 200px;
+    width: 200px;
+    background-color: black;
+    animation: tournerZ;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    //animation-direction: reverse;
+    opacity: .4;
+}
+
+@keyframes reculer {
+    from {transform: translateZ(0px);}
+    to {transform: translateZ(500px);}
+}
+
+@keyframes tournerZ {
+    from {transform: rotateZ(0deg);}
+    to {transform: rotateZ(360deg);}
+}
+
+@keyframes tournerY {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(360deg);}
+}
+
+@keyframes tournerX {
+    from {transform: rotateX(0deg);}
+    to {transform: rotateX(360deg);}
+}
