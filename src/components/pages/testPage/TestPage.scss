@@ -1,0 +1,58 @@
+.testPage {
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+canvas {
+    z-index: -1;
+    height: 100vh; 
+    width: 100vw; 
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: black;
+}
+
+.testDiv {
+    z-index: 2;
+    width: 500px;
+    height: 500px;
+    background-color: wheat;
+}
+
+.hexagon {
+    position:relative;
+    width: 50px; 
+    height: 28.87px;
+    background-color: #64C7CC;
+    margin: 14.43px 0;
+}
+  
+.hexagon:before, .hexagon:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+}
+  
+.hexagon:before {
+    bottom: 100%;
+    border-bottom: 14.43px solid #64C7CC;
+}
+  
+.hexagon:after {
+    top: 100%;
+    width: 0;
+    border-top: 14.43px solid #64C7CC;
+}
+
+.background {
+    position: relative;
+}
+
+.h1 {
+    left: 25px;
+}
