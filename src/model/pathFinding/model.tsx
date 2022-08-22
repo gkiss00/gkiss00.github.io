@@ -32,10 +32,6 @@ export default class Node {
         this.status = Status.EMPTY;
     }
 
-    compareTo(node: Node): boolean {
-        return this.dist < node.dist;
-    }
-
     distWith(node: Node) {
         return Math.abs(this.x -node.x) + Math.abs(this.y -node.y);
     }
@@ -52,10 +48,10 @@ export class State {
 }
 
 export class PriorityQueue {
-    private queue: State[];
+    queue: State[] = [];
 
     constructor() {
-        this.queue = [];
+        console.log("constructor 2", this.queue)
     }
 
     push(node: State) {
