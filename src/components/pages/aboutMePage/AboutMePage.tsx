@@ -16,6 +16,7 @@ const AboutMePage: React.FC<any> = () => {
     }, []);
 
     createModule().then((mod: any) => {
+        /*
         // GET/SEND int OK
         console.log(mod._add(a, b))
         console.log(mod._sub(a, b))

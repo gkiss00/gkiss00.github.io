@@ -1,6 +1,17 @@
+export enum Status {
+    EMPTY,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    BLOCKED,
+    START,
+    END
+}
+
 export default class Node {
-    y: number;
     x:number;
+    y: number;
     up: Node | null;
     down: Node | null;
     left: Node | null;
@@ -9,7 +20,7 @@ export default class Node {
     dist: number;
     status: Status;
 
-    constructor(y: number, x:number) {
+    constructor(x:number, y: number) {
         this.y = y;
         this.x = x;
         this.up = null;
@@ -20,11 +31,41 @@ export default class Node {
         this.dist = 1000000;
         this.status = Status.EMPTY;
     }
+
+    compareTo(node: Node): boolean {
+        return this.dist < node.dist;
+    }
+
+    distWith(node: Node) {
+        return Math.abs(this.x -node.x) + Math.abs(this.y -node.y);
+    }
 }
 
-export enum Status {
-    EMPTY,
-    BLOCKED,
-    START,
-    END
+export class State {
+    node: Node;
+    previousState: State | undefined;
+
+    constructor(node:Node) {
+        this.node = node;
+        this.previousState = undefined;
+    }
+}
+
+export class PriorityQueue {
+    private queue: State[];
+
+    constructor() {
+        this.queue = [];
+    }
+
+    push(node: State) {
+        this.queue.push(node);
+        this.queue.sort(function(a:State, b:State) {
+            return b.node.dist - a.node.dist;
+        });
+    }
+
+    pop(): State {
+        return this.queue.pop() as State;
+    }
 }

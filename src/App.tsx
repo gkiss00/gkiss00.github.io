@@ -15,7 +15,6 @@ const App: React.FC<any> = () => {
     <ProjectPage></ProjectPage>
     <ProjectPage></ProjectPage>
     <PathFindingPage></PathFindingPage>
-    <TestPage></TestPage>
    </>
   )
 }
