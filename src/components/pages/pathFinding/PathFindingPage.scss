@@ -30,19 +30,33 @@
     border-radius: 3px;
 }
 
-.startPoint {
+#startPoint {
     background-color: green;
 }
 
-.obstacle {
+#obstacle {
     background-color: black;
 }
 
-.endPoint {
+#endPoint {
     background-color: green;
     background: url("./../../../assets/flag.jpeg");
     background-size: 50px 50px;
     background-color: white;
+}
+
+#start {
+    background: url("./../../../assets/start.jpeg");
+    background-size: 50px 50px;
+    background-color: white;
+    transform: rotate(90deg);
+}
+
+#refresh {
+    background: url("./../../../assets/refresh.png");
+    background-size: 50px 50px;
+    background-color: white;
+    transform: rotate(90deg);
 }
 
 .board {
@@ -59,8 +73,10 @@
 }
 
 .cell {
-    background-color: red;
+    background-color: var(--color-snow-white);
     border-radius: 3px;
+
+    border: none;
 }
 
 .cell:hover {

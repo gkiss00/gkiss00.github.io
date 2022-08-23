@@ -13,7 +13,6 @@ const App: React.FC<any> = () => {
    <>
    <AboutMePage></AboutMePage>
     <ProjectPage></ProjectPage>
-    <ProjectPage></ProjectPage>
     <PathFindingPage></PathFindingPage>
    </>
   )
