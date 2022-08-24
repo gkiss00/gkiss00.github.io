@@ -1,6 +1,12 @@
 SRCS				= 	rt.c \
 						matrix.c \
 						transform.c \
+						line.c \
+						intersection.c \
+						color.c \
+						utils.c \
+						camera.c \
+						obj/sphere.c \
 						
 all :				
 					emcc --no-entry ${SRCS} -o rt.mjs  \
