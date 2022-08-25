@@ -85,9 +85,9 @@ static void xxx(t_config *c) {
     up.tab[0][0] = 0;
     up.tab[0][1] = 0;
     up.tab[0][2] = 1;
-    c->height = 200;
-    c->width = 200;
-    c->antiAliasing = 2;
+    c->height = 400;
+    c->width = 400;
+    c->antiAliasing = 1;
     c->camera = createCamera(&pointOfVue, &direction, &up, 90);
     updateCamera(&c->camera, c->height, c->width);
     c->nbObj = 1;
@@ -151,8 +151,10 @@ static t_color getPixelColor(t_line *ray, int reflectionDeepness) {
 static void addPixelColor(int x, int y, t_color *pixelColor) {
     for (int h = 0; h < config.antiAliasing; ++h) {
         for (int w = 0; w < config.antiAliasing; ++w) {
-            double heightRatio = ((y - (config.height / 2) + 0.5) / config.height) + ((1.0 / config.height / config.antiAliasing) * h);
-            double widthRatio = ((x - (config.width / 2) + 0.5) / config.width) + ((1.0 / config.width / config.antiAliasing) * w);
+            double heightRatio = (y - (double)config.height / 2.0 + 0.5) / config.height + 
+            ((1.0 / config.height) / config.antiAliasing) * h;
+            double widthRatio = (x - (double)config.width / 2.0 + 0.5) / config.width + 
+            ((1.0 / config.width) / config.antiAliasing) * w;
             t_matrix tmp = getPointFromDouble(&(config.camera), heightRatio, widthRatio);
             t_line ray = createLineFromTwoPoints(&(config.camera.pointOfVue), &tmp);
             normalize(&(ray.vector));
@@ -172,9 +174,9 @@ char *rt() {
     }
     for (int y = 0; y < config.height; ++y) {
         for (int x = 0; x < config.width; ++x) {
-            t_color pixelColor;
+            t_color pixelColor = {0};
             addPixelColor(x, y, &pixelColor);
-            divideColor(&pixelColor, config.antiAliasing * config.antiAliasing);
+            divideColor(&pixelColor, (config.antiAliasing * config.antiAliasing));
             pixels[y][x] = pixelColor;
         }
     }
