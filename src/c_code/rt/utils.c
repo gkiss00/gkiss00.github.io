@@ -12,7 +12,6 @@ int max(int a, int b) {
 t_solution createSolution(int nb) {
     t_solution solution;
     solution.nb = nb;
-    solution.s = malloc(nb * sizeof(double));
     return solution;
 }
 
@@ -35,4 +34,13 @@ t_solution solve(double a, double b, double c) {
         solution.s[1] = (-b - sqrt(delta)) / (2 * a);
     }
     return solution;
+}
+
+void printMatrix(t_matrix *matrix) {
+    for (int i = 0; i < 4; ++i) {
+        for(int j = 0; j < 4; ++j) {
+            printf("%f ", matrix->tab[j][i]);
+        }
+        printf("\n");
+    }
 }

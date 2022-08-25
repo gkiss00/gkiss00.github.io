@@ -20,8 +20,8 @@
 #define TO_REAL 2
 
 typedef struct s_solution {
-    double nb;
-    double *s;
+    int nb;
+    double s[2];
 }   t_solution;
 
 typedef struct s_color {
@@ -34,7 +34,7 @@ typedef struct s_color {
 typedef struct s_matrix {
     int col;
     int row;
-    double **tab;
+    double tab[4][4];
 }   t_matrix;
 
 typedef struct s_transform {
@@ -88,7 +88,7 @@ typedef struct s_intersection {
 
 typedef struct s_listIntersection {
     int nb;
-    t_intersection *intersections;
+    t_intersection intersections[2];
 }   t_listIntersection;
 
 // UTILS
@@ -96,6 +96,7 @@ int min(int a, int b);
 int max(int a, int b);
 t_solution solve(double a, double b, double c);
 t_solution createSolution(int nb);
+void printMatrix(t_matrix *matrix);
 
 // INTERSECTION
 t_intersection *createIntersection(t_matrix *realIntersection, t_matrix *normal, t_color *color, double dist, double reflectionRatio, t_object *obj);
@@ -116,6 +117,7 @@ t_color colorReflection(t_color *color1, t_color *color2, double factor);
 // LINE
 t_line createLine();
 t_line createLineFromPointAndVector(t_matrix *point, t_matrix *vector);
+t_line createLineFromTwoPoints(t_matrix *p1, t_matrix *p2);
 
 // MATRIX
 t_matrix createPoint();
@@ -172,6 +174,7 @@ t_line applyLine(t_transform *transform, t_line *line, int type);
 t_camera createCamera(t_matrix *pointOfVue, t_matrix *direction, t_matrix *up, double angle);
 void updateCamera(t_camera *camera, int height, int width);
 t_matrix getPointFromInt(t_camera * cam, int h, int w);
+t_matrix getPointFromDouble(t_camera * cam, double h, double w);
 
 // OBJECTS
 void updateTransform(

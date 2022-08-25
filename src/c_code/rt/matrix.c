@@ -3,10 +3,7 @@
 // MATRIX SHIT
 
 static void initMatrix(t_matrix *matrix) {
-    matrix->tab = malloc(matrix->row * sizeof(double*));
-    for(int i = 0;i < matrix->row; ++i) {
-        matrix->tab[i] = malloc(matrix->col * sizeof(double));
-    }
+    
 }
 
 t_matrix createPoint() {
@@ -106,21 +103,21 @@ double getDeterminant(t_matrix *matrix) {
     }
 }
 
-t_matrix getSubMatrixRowed(int n, t_matrix *m) {
-    t_matrix matrix = createMatrix(m->col - 1, m->row -1);
+t_matrix getSubMatrixRowed(int n, t_matrix *matrix) {
+    t_matrix m = createMatrix(matrix->col - 1, matrix->row -1);
 
-    for (int i = 1; i < matrix.col; ++i) {
-        for (int j = 0; j < matrix.row; ++j) {
+    for (int i = 1; i < matrix->col; ++i) {
+        for (int j = 0; j < matrix->row; ++j) {
             if (j < n)
-                matrix.tab[i - 1][j] = m->tab[i][j];
+                m.tab[i - 1][j] = matrix->tab[i][j];
             else if (j == n) {
 
             } else {
-                matrix.tab[i - 1][j - 1] = m->tab[i][j];
+                m.tab[i - 1][j - 1] = matrix->tab[i][j];
             }
         }
     }
-    return matrix;
+    return m;
 }
 
 void unit(t_matrix *matrix) {
@@ -145,10 +142,6 @@ void transpose(t_matrix *m) {
 void copyMatrix(t_matrix *from, t_matrix *to) {
     to->col = from->col;
     to->row = from->row;
-    to->tab = malloc(from->row * sizeof(double*));
-    for(int i = 0;i < from->row; ++i) {
-        to->tab[i] = malloc(from->col * sizeof(double));
-    }
     for (int i = 0; i < from->col; ++i) {
         for (int j = 0; j < from->row; ++j) {
             to->tab[i][j] = from->tab[i][j];
@@ -285,9 +278,9 @@ double dotProduct(t_matrix *v1, t_matrix * v2) {
 
 t_matrix crossProduct(t_matrix *v1, t_matrix * v2) {
     t_matrix res = createVector();
-    res.tab[0][0] = v1->tab[0][1] * v2->tab[0][2] - v2->tab[0][1] * v1->tab[0][2];
-    res.tab[0][1] = -v1->tab[0][0] * v2->tab[0][2] + v2->tab[0][0] * v1->tab[0][2];
-    res.tab[0][2] = v1->tab[0][0] * v2->tab[0][1] - v2->tab[0][0] * v1->tab[0][1];
+    res.tab[0][0] = (v1->tab[0][1] * v2->tab[0][2]) - (v2->tab[0][1] * v1->tab[0][2]);
+    res.tab[0][1] = -(v1->tab[0][0] * v2->tab[0][2]) + (v2->tab[0][0] * v1->tab[0][2]);
+    res.tab[0][2] = (v1->tab[0][0] * v2->tab[0][1]) - (v2->tab[0][0] * v1->tab[0][1]);
     return res;
 }
 

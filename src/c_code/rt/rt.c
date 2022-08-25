@@ -74,18 +74,27 @@ static char *saver(const t_config *config, t_color **pixels)
 
 static void xxx(t_config *c) {
     t_matrix pointOfVue = createPoint();
+    pointOfVue.tab[0][0] = -50;
+    pointOfVue.tab[0][1] = 0;
+    pointOfVue.tab[0][2] = 0;
     t_matrix direction = createVector();
+    direction.tab[0][0] = 1;
+    direction.tab[0][1] = 0;
+    direction.tab[0][2] = 0;
     t_matrix up = createVector();
-    c->height = 400;
-    c->width = 400;
-    c->antiAliasing = 1;
+    up.tab[0][0] = 0;
+    up.tab[0][1] = 0;
+    up.tab[0][2] = 1;
+    c->height = 200;
+    c->width = 200;
+    c->antiAliasing = 2;
     c->camera = createCamera(&pointOfVue, &direction, &up, 90);
     updateCamera(&c->camera, c->height, c->width);
     c->nbObj = 1;
     c->objects = &sp;
     sp.color = createColorRGBA(1, 0, 0, 1);
     c->objects[0].transform = createTransform();
-    updateTransform(&sp, 0, 0, 0, 1, 1, 1, -400, 0, 0);
+    updateTransform(&sp, 0, 0, 0, 1, 1, 1, 0, 0, 0);
 }
 
 static t_listIntersection getIntersections(t_line *ray) {
@@ -135,7 +144,7 @@ static t_color getPixelColor(t_line *ray, int reflectionDeepness) {
             break;
         }
     }
-    free(intersections.intersections);
+    //free(intersections.intersections);
     return res;
 }
 
@@ -144,8 +153,8 @@ static void addPixelColor(int x, int y, t_color *pixelColor) {
         for (int w = 0; w < config.antiAliasing; ++w) {
             double heightRatio = ((y - (config.height / 2) + 0.5) / config.height) + ((1.0 / config.height / config.antiAliasing) * h);
             double widthRatio = ((x - (config.width / 2) + 0.5) / config.width) + ((1.0 / config.width / config.antiAliasing) * w);
-            t_matrix tmp = getPointFromInt(&(config.camera), heightRatio, widthRatio);
-            t_line ray = createLineFromPointAndVector(&(config.camera.pointOfVue), &tmp);
+            t_matrix tmp = getPointFromDouble(&(config.camera), heightRatio, widthRatio);
+            t_line ray = createLineFromTwoPoints(&(config.camera.pointOfVue), &tmp);
             normalize(&(ray.vector));
             t_color c = getPixelColor(&ray, 0);
             addColor(pixelColor, &c);
@@ -155,13 +164,8 @@ static void addPixelColor(int x, int y, t_color *pixelColor) {
 
 EMSCRIPTEN_KEEPALIVE
 char *rt() {
-    // parsing
-    // calcul
-    printf("\noui\n");
-    sp = createSphere(50);
-    printf("\noui\n");
+    sp = createSphere(10);
     xxx(&config);
-    printf("\nstart\n");
     t_color **pixels = malloc(config.height * sizeof(t_color*));
     for(int i = 0; i < config.height;++i) {
         pixels[i] = malloc(config.width * sizeof(t_color));
@@ -171,15 +175,9 @@ char *rt() {
             t_color pixelColor;
             addPixelColor(x, y, &pixelColor);
             divideColor(&pixelColor, config.antiAliasing * config.antiAliasing);
-            // Filter.applyFilter(pixelColor, config.filter);
-            // if(shouldUpdateBuffer)
-            //     buffer.setRGB(x, y, pixelColor.toInt());
-            // if(shouldUpdateServer)
-            //     senColorToServer(x, y, pixelColor);
             pixels[y][x] = pixelColor;
         }
     }
-    //printf("%s\n", saver(&config, pixels));
     return saver(&config, pixels);
     return NULL;
 }

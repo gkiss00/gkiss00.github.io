@@ -2,9 +2,9 @@
 
 t_camera createCamera(t_matrix *pointOfVue, t_matrix *direction, t_matrix *up, double angle) {
     t_camera camera;
-    camera.pointOfVue = createMatrixCpy(pointOfVue);
-    camera.direction = createMatrixCpy(direction);
-    camera.up = createMatrixCpy(up);
+    camera.pointOfVue = createPointCpy(pointOfVue);
+    camera.direction = createVectorCpy(direction);
+    camera.up = createVectorCpy(up);
     camera.angle = angle;
     return camera;
 }

@@ -5,9 +5,7 @@
 t_object createSphere(double radius) {
     t_object sphere;
     sphere.type = SPHERE;
-    printf("\nsp\n");
     sphere.values[0] = radius;
-    printf("\nsp\n");
     return sphere;
 }
 
