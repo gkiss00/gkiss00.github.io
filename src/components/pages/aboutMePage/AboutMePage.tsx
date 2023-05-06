@@ -17,10 +17,20 @@ const AboutMePage: React.FC<any> = () => {
     }, []);
 
     createModule().then((mod: any) => {
+        const outputPtr = mod._rt()
+
+        const base64Size = ((26 + (400 * 400 * 3)) * 4 / 3) + 2
+        const myArr = new Uint8Array(base64Size)
+        myArr.set(mod.HEAPU8.subarray(outputPtr, Number(outputPtr) + base64Size))
+
+        const utf8Decode = new TextDecoder()
+        const msg = utf8Decode.decode(myArr)
+
+        setImage(msg);
         // GET/SEND int OK
-        const img = mod.UTF8ToString(mod._rt())
-        console.log(img);
-        setImage(img);
+        // const img = mod.UTF8ToString(mod._rt())
+        // console.log(img);
+        // setImage(img);
     })
     
     return (

@@ -7,6 +7,7 @@ import AboutMePage from './components/pages/aboutMePage/AboutMePage'
 import PathFindingPage from './components/pages/pathFinding/PathFindingPage'
 import ProjectPage from './components/pages/projectPage/ProjectPage'
 import TestPage from './components/pages/testPage/TestPage'
+import SortingPage from './components/pages/sortingPage/SortingPage'
 
 const App: React.FC<any> = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC<any> = () => {
    <AboutMePage></AboutMePage>
     <ProjectPage></ProjectPage>
     <PathFindingPage></PathFindingPage>
+    <SortingPage></SortingPage>
    </>
   )
 }
