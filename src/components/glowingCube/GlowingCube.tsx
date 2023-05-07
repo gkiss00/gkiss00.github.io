@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet, Link } from "react-router-dom";
 import './GlowingCube.scss'
 
 interface GlowingCubeInterface{
@@ -6,10 +7,12 @@ interface GlowingCubeInterface{
 }
 
 const GlowingCube : React.FC<GlowingCubeInterface> = (props) => {
+
+const path = `project/${props.project}`;
     return (
         <div className="glowingCube">
             <div className="glowingContent">
-                <p>{props.project}</p>
+                <p><Link to={path}>{props.project}</Link></p>
             </div>
             <div className="glowingLiftableTurnalble">
                 <div className="glowingTop"></div>

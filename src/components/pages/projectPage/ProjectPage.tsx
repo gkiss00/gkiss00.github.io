@@ -6,8 +6,8 @@ const ProjectPage : React.FC<any> = () => {
     return (
         <section className="projectPage">
             <GlowingCube project="Ray-Tracer"></GlowingCube>
-            <GlowingCube project="Cryptography"></GlowingCube>
-            <GlowingCube project="TODO"></GlowingCube>
+            <GlowingCube project="Path-Finding"></GlowingCube>
+            <GlowingCube project="Sorting"></GlowingCube>
         </section>
     )
 }
