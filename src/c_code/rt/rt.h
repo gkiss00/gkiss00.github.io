@@ -99,7 +99,7 @@ t_solution createSolution(int nb);
 void printMatrix(t_matrix *matrix);
 
 // INTERSECTION
-t_intersection *createIntersection(t_matrix *realIntersection, t_matrix *normal, t_color *color, double dist, double reflectionRatio, t_object *obj);
+t_intersection createIntersection(t_matrix *realIntersection, t_matrix *normal, t_color *color, double dist, double reflectionRatio, t_object *obj);
 t_listIntersection createListIntersection();
 void addIntersectionToList(t_listIntersection *list, t_intersection *inter);
 

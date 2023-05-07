@@ -31,8 +31,8 @@ void hitSphere(t_object *sphere, t_line *ray, t_listIntersection *list) {
             localIntersection.tab[0][2] = localRay.point.tab[0][2] + localRay.vector.tab[0][2] * solutions.s[i];
             t_matrix realIntersection = applyPoint(&(sphere->transform), &localIntersection, TO_REAL);
             t_matrix realNormal = applyVector(&(sphere->transform), &localIntersection, TO_REAL);
-            t_intersection *inter = createIntersection(&realIntersection, &realNormal, &(sphere->color), distBetween(&(ray->point), &realIntersection), 0, sphere);
-            addIntersectionToList(list, inter);
+            t_intersection inter = createIntersection(&realIntersection, &realNormal, &(sphere->color), distBetween(&(ray->point), &realIntersection), 0, sphere);
+            addIntersectionToList(list, &inter);
         }
     }
 }

@@ -29,7 +29,7 @@ static int base64(int n, char msg[n], char e[])
 static char *saver(const t_config *config, t_color **pixels)
 {
     int d, n = 26 + (config->width * config->height * 3);
-    char file[n];
+    char *file = malloc(n);
     unsigned short s;
 
     memcpy(&file[0], "BM", 2);
@@ -59,6 +59,7 @@ static char *saver(const t_config *config, t_color **pixels)
 #else
     char *base64_encrypted = malloc((n*4 / 3) + 2);
     base64(n, file, base64_encrypted);
+    free(file);
 #endif
 
     for (int y = 0; y < config->height; ++y)
@@ -87,7 +88,7 @@ static void xxx(t_config *c) {
     up.tab[0][2] = 1;
     c->height = 400;
     c->width = 400;
-    c->antiAliasing = 1;
+    c->antiAliasing = 3;
     c->camera = createCamera(&pointOfVue, &direction, &up, 90);
     updateCamera(&c->camera, c->height, c->width);
     c->nbObj = 1;
@@ -128,6 +129,7 @@ static t_color getPixelColor(t_line *ray, int reflectionDeepness) {
 
     // COMPUTE COLOR
     t_color res = createColorRGBA(0, 0, 0, 0);
+    //return res;
     int size = intersections.nb;
     for(int i = 0; i < size; ++i) {
         t_intersection intersection = intersections.intersections[i];
@@ -174,14 +176,16 @@ char *rt() {
     }
     for (int y = 0; y < config.height; ++y) {
         for (int x = 0; x < config.width; ++x) {
-            t_color pixelColor = {0};
-            addPixelColor(x, y, &pixelColor);
-            divideColor(&pixelColor, (config.antiAliasing * config.antiAliasing));
-            pixels[y][x] = pixelColor;
+            t_color *pixelColor = malloc(sizeof(t_color));
+            addPixelColor(x, y, pixelColor);
+            divideColor(pixelColor, (config.antiAliasing * config.antiAliasing));
+            pixels[y][x].r = pixelColor->r;
+            pixels[y][x].g = pixelColor->g;
+            pixels[y][x].b = pixelColor->b;
+            pixels[y][x].a = pixelColor->a;
         }
     }
     return saver(&config, pixels);
-    return NULL;
 }
 
 int main(int argc, char **agrv) {
