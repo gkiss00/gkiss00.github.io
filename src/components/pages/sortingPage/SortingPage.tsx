@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { BaseSyntheticEvent, useState } from "react";
 import './SortingPage.scss'
 
 const SortingPage : React.FC<any> = () => {
@@ -81,9 +81,16 @@ const SortingPage : React.FC<any> = () => {
         }
     }
 
+    const changeNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value);
+        let value: number = +event.target.value
+        setNumberOfElement(value)
+    }
+
     return (
         <section className="sortingPage">
             <div className="sortingPageHeader">
+                <input type="number" onChange={changeNumber} value={numberOfElement}></input>
                 <button onClick={shuffle}>Shuffle</button>
                 <button onClick={sort}>Sort</button>
             </div>
