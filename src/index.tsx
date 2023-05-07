@@ -5,7 +5,7 @@ import './index.scss'
 import App from './App'
 import NotFoundPage from './components/pages/notFoundPage/NotFoundPage';
 import SortingPage from './components/pages/sortingPage/SortingPage';
-import PathFindingPage from './components/pages/pathFinding/PathFindingPage';
+import PathFindingPage from './components/pages/pathFindingPage/PathFindingPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

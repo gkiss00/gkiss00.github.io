@@ -1,14 +1,15 @@
 import React, { BaseSyntheticEvent, useState } from "react";
 import './SortingPage.scss'
+import SortingMap, { BubbleSort, SelectionSort } from "../../../model/sorting/model";
 
 const SortingPage : React.FC<any> = () => {
     const [numberOfElement, setNumberOfElement] = useState<number>(50);
+    const [sortingType, setSortingType] = useState<string>("BubbleSort");
     const numbers: number[] = [];
+
     for(let i = 1; i <= numberOfElement; ++i) {
         numbers.push(i);
     }
-
-    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
     const shuffle = () => {
         console.log("SHUFFLE");
@@ -27,58 +28,8 @@ const SortingPage : React.FC<any> = () => {
 
     const sort = async () => {
         console.log("SORT");
-        const allNumbers: HTMLElement = document.getElementsByClassName("numbers").item(0) as HTMLElement;
-        // shitty sort
-        // for (let i = 0; i < numberOfElement - 1; ++i) {
-        //     const firstNumber: HTMLElement = allNumbers.children.item(i) as HTMLElement;
-        //     const secondNumber: HTMLElement = allNumbers.children.item(i + 1) as HTMLElement;
-        //     firstNumber.style.backgroundColor = "red";
-        //     secondNumber.style.backgroundColor = "blue";
-        //     const height1: number = +firstNumber.id;
-        //     const height2: number = +secondNumber.id;
-        //     if (height1 > height2) {
-        //         // swap height
-        //         const heightCopy = firstNumber.style.height;
-        //         firstNumber.style.height = secondNumber.style.height;                    secondNumber.style.height = heightCopy;
-        //         // swap id
-        //         const firstIdCopy = firstNumber.id;
-        //         const secondIdCopy = secondNumber.id;
-        //         secondNumber.id = "" + (numberOfElement + 1);
-        //         firstNumber.id = secondIdCopy;
-        //         secondNumber.id = firstIdCopy;
-        //         i = -1;
-        //     }
-        
-        //     await delay(5);
-        //     firstNumber.style.backgroundColor = "white";
-        //     secondNumber.style.backgroundColor = "white";
-        // }
-        // bubble sort
-        for(let i = 0; i < numberOfElement - 1; ++i) {
-            for(let j = 0; j < numberOfElement - i - 1; ++j) {
-                const firstNumber: HTMLElement = allNumbers.children.item(j) as HTMLElement;
-                const secondNumber: HTMLElement = allNumbers.children.item(j + 1) as HTMLElement;
-                const height1: number = +firstNumber.id;
-                const height2: number = +secondNumber.id;
-                firstNumber.style.backgroundColor = "red";
-                secondNumber.style.backgroundColor = "blue";
-                if (height1 > height2) {
-                    // swap height
-                    const heightCopy = firstNumber.style.height;
-                    firstNumber.style.height = secondNumber.style.height;
-                    secondNumber.style.height = heightCopy;
-                    // swap id
-                    const firstIdCopy = firstNumber.id;
-                    const secondIdCopy = secondNumber.id;
-                    secondNumber.id = "" + (numberOfElement + 1);
-                    firstNumber.id = secondIdCopy;
-                    secondNumber.id = firstIdCopy;
-                }
-                await delay(10);
-                firstNumber.style.backgroundColor = "white";
-                secondNumber.style.backgroundColor = "white";
-            }
-        }
+        sortingType;
+        SortingMap.get(sortingType)?.call(1, numberOfElement);
     }
 
     const changeNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,10 +38,23 @@ const SortingPage : React.FC<any> = () => {
         setNumberOfElement(value)
     }
 
+    const changeSortingType = (event: any) => {
+        const select: HTMLSelectElement = document.getElementById("sortingTypeSelect") as HTMLSelectElement;
+        const index: number = select.selectedIndex;
+        const option: HTMLSelectElement = select.options[index] as unknown as HTMLSelectElement;
+        const value = option.value;
+        setSortingType(value);
+    }
+
     return (
         <section className="sortingPage">
             <div className="sortingPageHeader">
                 <input type="number" onChange={changeNumber} value={numberOfElement}></input>
+                <select id="sortingTypeSelect" onChange={changeSortingType}>
+                    {Array.from(SortingMap.keys()).map((value: string) => {
+                        return <option value={value}>{value}</option>
+                    })}
+                </select>
                 <button onClick={shuffle}>Shuffle</button>
                 <button onClick={sort}>Sort</button>
             </div>
@@ -98,8 +62,7 @@ const SortingPage : React.FC<any> = () => {
                 {numbers.map((nb: number) => {
                     return <div id={"" + nb} className="number" style={{height:nb, width:10}}></div>
                 })}
-            </div>
-            
+            </div> 
         </section>
     )
 }
