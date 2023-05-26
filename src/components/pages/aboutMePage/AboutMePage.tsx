@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import './AboutMePage.scss'
-import Info from './../../info/Info'
+import Info from '../../info/Info'
 import createModule from '../../../c_code/rt/rt.mjs';
 
 const AboutMePage: React.FC<any> = () => {

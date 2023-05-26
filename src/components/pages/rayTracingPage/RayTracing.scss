@@ -1,0 +1,16 @@
+label {
+    color: white;
+}
+
+form div{
+    display: flex;
+    flex-direction: column;
+}
+
+.imageFormSection {
+    border: 2px blue solid;
+}
+
+.cameraFormSection {
+    border: 2px yellow solid;
+}
