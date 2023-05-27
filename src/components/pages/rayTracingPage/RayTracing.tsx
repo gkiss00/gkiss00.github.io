@@ -28,7 +28,14 @@ const RayTracingPage: React.FC<any> = () => {
 
     return (
         <section id="rayTracingPage" className="rayTracingPage">
-            <img src={`data:image/bmp;base64, ${image}`} />
+            {
+                image != '' ? 
+                <img src={`data:image/bmp;base64, ${image}`} />
+                :
+                <div className="loader"></div>
+                
+            }
+            
             <form>
                 <ImageForm></ImageForm>
                 <CameraForm></CameraForm>
