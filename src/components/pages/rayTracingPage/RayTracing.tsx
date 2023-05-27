@@ -1,11 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import createModule from '../../../c_code/rt/rt.mjs';
 import "./RayTracing.scss"
 import ImageForm from "./components/ImageForm";
 import CameraForm from "./components/CameraForm";
+import ObjectsForm from "./components/ObjectsForm";
+import { Camera } from "../../../model/rayTracing/model";
 
 const RayTracingPage: React.FC<any> = () => {
-    const [image, setImage] = React.useState('');
+    const [image, setImage] = useState('');
 
     const loadImage = async () => {
         const mod: any = await createModule();
@@ -30,6 +32,7 @@ const RayTracingPage: React.FC<any> = () => {
             <form>
                 <ImageForm></ImageForm>
                 <CameraForm></CameraForm>
+                <ObjectsForm></ObjectsForm>
             </form>
         </section>
     )

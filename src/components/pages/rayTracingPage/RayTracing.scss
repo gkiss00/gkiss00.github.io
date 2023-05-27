@@ -1,5 +1,37 @@
-label {
+h2 {
+    font-size: 30px;
+    border-bottom: 1px grey solid;
+    margin-bottom: 10px;
+}
+
+input {
+    background: none;
+	color: inherit;
+    width: 150px;
+    height: 20px;
     color: white;
+    font-size: 15px;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+select {
+    background: none;
+    background-color: var(--color-dark-black);
+	color: inherit;
+    width: 150px;
+    height: 20px;
+
+    color: white;
+    font-size: 15px;
+}
+
+select::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 form div{
@@ -7,10 +39,45 @@ form div{
     flex-direction: column;
 }
 
-.imageFormSection {
-    border: 2px blue solid;
+.rtImageFormSection input {
+    width: 100px;
 }
 
-.cameraFormSection {
-    border: 2px yellow solid;
+.rtFormSection {
+    color: white;
+    padding: 20px;
+    border: 1px grey solid;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.rtFormDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px grey solid;
+    margin-bottom: 3px;
+}
+
+.rtVectorFormInput {
+    width: 50px;
+}
+
+.rtColorFormInput {
+    width: 30px;
+}
+
+#rtCameraAngle {
+    width: 50px;
+}
+
+#rtAddObject {
+    width: 60px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px grey solid;
+    border-radius: 20px;
+    margin: 2px;
 }

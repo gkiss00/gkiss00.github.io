@@ -28,7 +28,7 @@ const ImageForm: React.FC<any> = () => {
     }
 
     const changeFilter = (event: any) => {
-        const select: HTMLSelectElement = document.getElementById("filter") as HTMLSelectElement;
+        const select: HTMLSelectElement = document.getElementById("rtImageFilter") as HTMLSelectElement;
         const index: number = select.selectedIndex;
         const option: HTMLSelectElement = select.options[index] as unknown as HTMLSelectElement;
         const value = option.value;
@@ -37,22 +37,30 @@ const ImageForm: React.FC<any> = () => {
     }
 
     return (
-        <div className="imageFormSection">
-            <label onClick={show}>Config {isActive ? "^" : "ˇ"}</label>
+        <div className="rtFormSection rtImageFormSection">
+            <h2 onClick={show}>Config {isActive ? "^" : "ˇ"}</h2>
             {isActive ?
             <>
+            <div className="rtFormDiv">
                 <label>Height</label>
-                <input id="height" type="number" min="1" onChange={setHeight} value={image.height}></input>
+                <input id="rtImageHeight" type="number" min="1" onChange={setHeight} value={image.height}></input>    
+            </div>
+            <div className="rtFormDiv">
                 <label>Width</label>
-                <input id="width" type="number" min="1" onChange={setWidth} value={image.width}></input>
+                <input id="rtImageWidth" type="number" min="1" onChange={setWidth} value={image.width}></input>
+            </div>
+            <div className="rtFormDiv">
                 <label>Anti-Aliasing</label>
-                <input id="width" type="number" min="1" max="9" onChange={setAntiAliasing} value={image.antiAliasing}></input>
+                <input id="rtImageAntiAliasing" type="range" min="1" max="9" onChange={setAntiAliasing} value={image.antiAliasing}></input>
+            </div>
+            <div className="rtFormDiv">
                 <label>Filter</label>
-                <select id="filter" onChange={changeFilter} value={image.filter}>
+                <select id="rtImageFilter" onChange={changeFilter} value={image.filter}>
                     {Object.values(Filter).map(filter => {
                         return <option id={filter} value={filter}>{filter}</option>
                     })}
                 </select>
+            </div>  
             </>
             :
             <></>
