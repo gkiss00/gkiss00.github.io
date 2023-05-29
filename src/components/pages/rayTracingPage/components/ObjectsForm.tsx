@@ -4,7 +4,7 @@ import ObjectForm from "./ObjectForm";
 
 const ObjectsForm: React.FC<any> = (props) => {
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [objects, setObjects] = useState<Object[]>([new Object()]);
+    const [objects, setObjects] = useState<Object[]>(props.objects);
 
     const show = () => {
         setIsActive(!isActive);
@@ -12,6 +12,7 @@ const ObjectsForm: React.FC<any> = (props) => {
 
     const updateObjects = (object: Object) => {
         setObjects([object]);
+        props.update(objects);
     }
 
     return (

@@ -1,39 +1,47 @@
 import { useState } from "react";
 import { Filter, Image } from "../../../../model/rayTracing/model";
 
-const ImageForm: React.FC<any> = () => {
+const ImageForm: React.FC<any> = (props) => {
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [image, setImage] = useState<Image>(new Image());
+    const [image, setImage] = useState<Image>(props.config);
 
     const show = () => {
         setIsActive(!isActive);
     }
 
     const setHeight = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         image.height = value;
         setImage({...image});
+        props.update(image);
     }
 
     const setWidth = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         image.width = value;
         setImage({...image});
+        props.update(image);
     }
 
     const setAntiAliasing = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         image.antiAliasing = value;
         setImage({...image});
+        props.update(image);
     }
 
     const changeFilter = (event: any) => {
+        event.preventDefault();
         const select: HTMLSelectElement = document.getElementById("rtImageFilter") as HTMLSelectElement;
         const index: number = select.selectedIndex;
         const option: HTMLSelectElement = select.options[index] as unknown as HTMLSelectElement;
         const value = option.value;
         image.filter = value;
         setImage({...image});
+        props.update(image);
     }
 
     return (

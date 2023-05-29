@@ -12,6 +12,7 @@ const ObjectForm: React.FC<any> = (props) => {
     }
 
     const updateValue = (index: number) => (event:any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         object.values[index] = value;
         setObject({...object});

@@ -4,10 +4,31 @@ import "./RayTracing.scss"
 import ImageForm from "./components/ImageForm";
 import CameraForm from "./components/CameraForm";
 import ObjectsForm from "./components/ObjectsForm";
-import { Camera } from "../../../model/rayTracing/model";
+import { Camera, Image, Object, createCopyBook } from "../../../model/rayTracing/model";
 
 const RayTracingPage: React.FC<any> = () => {
     const [image, setImage] = useState('');
+    const [config, setConfig] = useState<Image>(new Image());
+    const [camera, setCamera] = useState<Camera>(new Camera());
+    const [objects, setObjects] = useState<Object[]>([new Object()]);
+
+    const updateConfig = (conf: Image) => {
+        setConfig({...conf});
+    }
+
+    const updateCamera = (cam: Camera) => {
+        setCamera({...cam});
+    }
+
+    const updateObjects = (objs: Object[]) => {
+        setObjects([...objs]);
+    }
+
+    const load = (event: any) => {
+        event.preventDefault();
+        const copyBook = createCopyBook(config, camera, objects);
+        console.log(copyBook);
+    }
 
     const loadImage = async () => {
         const mod: any = await createModule();
@@ -33,13 +54,12 @@ const RayTracingPage: React.FC<any> = () => {
                 <img src={`data:image/bmp;base64, ${image}`} />
                 :
                 <div className="loader"></div>
-                
             }
-            
             <form>
-                <ImageForm></ImageForm>
-                <CameraForm></CameraForm>
-                <ObjectsForm></ObjectsForm>
+                <ImageForm config={config} update={updateConfig}></ImageForm>
+                <CameraForm camera={camera} update={updateCamera}></CameraForm>
+                <ObjectsForm objects={objects} update={updateObjects}></ObjectsForm>
+                <button onClick={load}>Load</button>
             </form>
         </section>
     )

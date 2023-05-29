@@ -5,6 +5,7 @@ const ColorForm: React.FC<any> = (props) => {
     const [color, setColor] = useState<Color>(props.color as Color);
 
     const setR = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         color.r = value;
         setColor({...color});
@@ -12,6 +13,7 @@ const ColorForm: React.FC<any> = (props) => {
     }
 
     const setG = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         color.g = value;
         setColor({...color});
@@ -19,6 +21,7 @@ const ColorForm: React.FC<any> = (props) => {
     }
 
     const setB = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         color.b = value;
         setColor({...color});
@@ -26,6 +29,7 @@ const ColorForm: React.FC<any> = (props) => {
     }
 
     const setA = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         color.a = value;
         setColor({...color});

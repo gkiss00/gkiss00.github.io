@@ -5,6 +5,7 @@ const VectorForm: React.FC<any> = (props) => {
     const [vector, setVector] = useState<Vector3>(props.vector as Vector3);
 
     const setX = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         vector.x = value;
         props.update(vector);
@@ -12,6 +13,7 @@ const VectorForm: React.FC<any> = (props) => {
     }
 
     const setY = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         vector.y = value;
         props.update(vector);
@@ -19,6 +21,7 @@ const VectorForm: React.FC<any> = (props) => {
     }
 
     const setZ = (event: any) => {
+        event.preventDefault();
         const value: number = +event.target.value;
         vector.z = value;
         props.update(vector);

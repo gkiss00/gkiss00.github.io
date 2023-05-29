@@ -4,7 +4,7 @@ import VectorForm from "./VectorForm";
 
 const CameraForm: React.FC<any> = (props) => {
     const [isActive, setIsActive] = useState<boolean>(false);
-    const [camera, setCamera] = useState<Camera>(new Camera());
+    const [camera, setCamera] = useState<Camera>(props.camera);
 
     const show = () => {
         setIsActive(!isActive);
@@ -13,22 +13,26 @@ const CameraForm: React.FC<any> = (props) => {
     const updateCameraPov = (pov: Vector3) => {
         camera.pov = pov;
         setCamera({...camera});
+        props.update(camera);
     }
 
     const updateCameraDir = (dir: Vector3) => {
         camera.dir = dir;
         setCamera({...camera});
+        props.update(camera);
     }
 
     const updateCameraUp = (up: Vector3) => {
         camera.up = up;
         setCamera({...camera});
+        props.update(camera);
     }
 
     const setAngle = (event: any) => {
         const value: number = +event.target.value;
         camera.angle = value;
         setCamera({...camera});
+        props.update(camera);
     }
 
     return (

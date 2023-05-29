@@ -67,3 +67,55 @@ export class Object {
         }
     }
 }
+
+export const createCopyBook = (config: Image, camera: Camera, objects: Object[]): string => {
+    // create copy book for the configuration of the image
+    let configBook: string = "";
+    configBook += ("" + config.height).padEnd(6, ' ');
+    configBook += ("" + config.width).padEnd(6, ' ');
+    configBook += ("" + config.antiAliasing);
+    configBook += ("" + config.filter).padEnd(20, ' ');
+
+    // create copy book for the camera
+    let cameraBook: string = "";
+    cameraBook += ("" + camera.pov.x).padEnd(6, ' ');
+    cameraBook += ("" + camera.pov.y).padEnd(6, ' ');
+    cameraBook += ("" + camera.pov.z).padEnd(6, ' ');
+    cameraBook += ("" + camera.dir.x).padEnd(6, ' ');
+    cameraBook += ("" + camera.dir.y).padEnd(6, ' ');
+    cameraBook += ("" + camera.dir.z).padEnd(6, ' ');
+    cameraBook += ("" + camera.up.x).padEnd(6, ' ');
+    cameraBook += ("" + camera.up.y).padEnd(6, ' ');
+    cameraBook += ("" + camera.up.z).padEnd(6, ' ');
+    cameraBook += ("" + camera.angle).padEnd(3, ' ');
+
+    // create copy book for the objects
+    let objectsBook: string = "";
+    objectsBook += ("" + objects.length).padEnd(3, ' ');
+    for(let i = 0; i < objects.length; ++i) {
+        const object: Object = objects[i];
+        let objectBook: string = "";
+        objectBook += object.type.padEnd(10, ' ');
+        for(let j = 0; j < object.values.length; ++j) {
+            objectBook += ("" + object.values[j]).padEnd(6, ' ');
+        }
+        objectBook += ("" + object.translation.x).padEnd(6, ' ');
+        objectBook += ("" + object.translation.y).padEnd(6, ' ');
+        objectBook += ("" + object.translation.z).padEnd(6, ' ');
+        objectBook += ("" + object.scaling.x).padEnd(6, ' ');
+        objectBook += ("" + object.scaling.y).padEnd(6, ' ');
+        objectBook += ("" + object.scaling.z).padEnd(6, ' ');
+        objectBook += ("" + object.rotation.x).padEnd(6, ' ');
+        objectBook += ("" + object.rotation.y).padEnd(6, ' ');
+        objectBook += ("" + object.rotation.z).padEnd(6, ' ');
+        objectBook += ("" + object.color.r).padEnd(3, ' ');
+        objectBook += ("" + object.color.g).padEnd(3, ' ');
+        objectBook += ("" + object.color.b).padEnd(3, ' ');
+        objectBook += ("" + object.color.a).padEnd(3, ' ');
+        objectsBook += objectBook;
+    }
+
+    // create global copy book
+    let copyBook = configBook + cameraBook + objectsBook;
+    return copyBook;
+}
