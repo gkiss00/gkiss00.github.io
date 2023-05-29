@@ -73,7 +73,7 @@ static char *saver(const t_config *config, t_color **pixels)
 #endif
 }
 
-static void xxx(t_config *c) {
+static void createStaticConfig(t_config *c) {
     t_matrix pointOfVue = createPoint();
     pointOfVue.tab[0][0] = -50;
     pointOfVue.tab[0][1] = 0;
@@ -96,6 +96,20 @@ static void xxx(t_config *c) {
     sp.color = createColorRGBA(1, 0, 0, 1);
     c->objects[0].transform = createTransform();
     updateTransform(&sp, 0, 0, 0, 1, 1, 1, 0, 0, 0);
+}
+
+void updateConfig(t_config *config, char *copyBook) {
+    char *height = substr(copyBook, 0, 6);
+    char *width = substr(copyBook, 6, 12);
+    char *antiAliasing = substr(copyBook, 12, 13);
+
+    config->height = atoi(height);
+    config->width = atoi(width);
+    config->antiAliasing = atoi(antiAliasing);
+
+    free(height);
+    free(width);
+    free(antiAliasing);
 }
 
 static t_listIntersection getIntersections(t_line *ray) {
@@ -167,9 +181,10 @@ static void addPixelColor(int x, int y, t_color *pixelColor) {
 }
 
 EMSCRIPTEN_KEEPALIVE
-char *rt() {
+char *rt(char *copyBook) {
     sp = createSphere(10);
-    xxx(&config);
+    createStaticConfig(&config);
+    updateConfig(&config, copyBook);
     t_color **pixels = malloc(config.height * sizeof(t_color*));
     for(int i = 0; i < config.height;++i) {
         pixels[i] = malloc(config.width * sizeof(t_color));
@@ -188,6 +203,6 @@ char *rt() {
     return saver(&config, pixels);
 }
 
-int main(int argc, char **agrv) {
-    rt();
+int main(int argc, char **argv) {
+    rt(argv[0]);
 }

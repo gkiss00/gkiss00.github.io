@@ -44,3 +44,40 @@ void printMatrix(t_matrix *matrix) {
         printf("\n");
     }
 }
+
+char *substr(char *str, int start, int end) {
+    int i = 0;
+    char *sub = malloc(end - start + 1);
+
+    while(start < end) {
+        sub[i] = str[start];
+        ++i;
+        ++start;
+    }
+    sub[start] = '\0';
+    return sub;
+}
+
+char *trim(char *str) {
+    int i = 0;
+    int size = 0;
+    char *result;
+
+    while(str[i] != ' ' && str[i] != '\0') {
+        ++size;
+        ++i;
+    }
+    result = malloc(size + 1);
+    i = 0;
+    while(i < size) {
+        result[i] = str[i];
+        ++i;
+    }
+    result[i] = '\0';
+    return result;
+}
+
+EMSCRIPTEN_KEEPALIVE
+char *createBuffer(int n) {
+    return malloc(n);
+}

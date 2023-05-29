@@ -7,7 +7,7 @@ import ObjectsForm from "./components/ObjectsForm";
 import { Camera, Image, Object, createCopyBook } from "../../../model/rayTracing/model";
 
 const RayTracingPage: React.FC<any> = () => {
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState<string>('');
     const [config, setConfig] = useState<Image>(new Image());
     const [camera, setCamera] = useState<Camera>(new Camera());
     const [objects, setObjects] = useState<Object[]>([new Object()]);
@@ -24,28 +24,36 @@ const RayTracingPage: React.FC<any> = () => {
         setObjects([...objs]);
     }
 
-    const load = (event: any) => {
+    const load = (value: boolean) => async (event: any) => {
         event.preventDefault();
         const copyBook = createCopyBook(config, camera, objects);
-        console.log(copyBook);
+        loadImage(copyBook, value);
     }
 
-    const loadImage = async () => {
-        const mod: any = await createModule();
-        console.log("RT");
-        const outputPtr = mod._rt()
-    
-        const base64Size = ((26 + (400 * 400 * 3)) * 4 / 3) + 2;
-        const myArr = new Uint8Array(base64Size);
-        myArr.set(mod.HEAPU8.subarray(outputPtr, Number(outputPtr) + base64Size));
-    
-        const utf8Decode = new TextDecoder();
-        const msg = utf8Decode.decode(myArr);
-    
-        setImage(msg);
+    const loadImage = async (copyBook: string, load: boolean) => {
+        if(image == '' || load == true) {
+            const module: any = await createModule();
+
+            // send copy book
+            const utf8Encode = new TextEncoder();
+            const bytes = utf8Encode.encode(copyBook);
+            const inputPtr = module._createBuffer(copyBook.length);
+            module.HEAPU8.set(bytes, inputPtr);
+
+            // get image base64 encoded
+            const outputPtr = module._rt(inputPtr);
+            const base64Size = ((26 + (config.height * config.width * 3)) * 4 / 3) + 2;
+            const stackArray = new Uint8Array(base64Size);
+            stackArray.set(module.HEAPU8.subarray(outputPtr, Number(outputPtr) + base64Size));
+            const utf8Decode = new TextDecoder();
+            const msg = utf8Decode.decode(stackArray);
+
+            setImage(msg);
+        }
+        
     }
 
-    loadImage();
+    loadImage(createCopyBook(config, camera, objects), false);
 
     return (
         <section id="rayTracingPage" className="rayTracingPage">
@@ -59,7 +67,7 @@ const RayTracingPage: React.FC<any> = () => {
                 <ImageForm config={config} update={updateConfig}></ImageForm>
                 <CameraForm camera={camera} update={updateCamera}></CameraForm>
                 <ObjectsForm objects={objects} update={updateObjects}></ObjectsForm>
-                <button onClick={load}>Load</button>
+                <button onClick={load(true)}>Load</button>
             </form>
         </section>
     )

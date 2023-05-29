@@ -97,6 +97,8 @@ int max(int a, int b);
 t_solution solve(double a, double b, double c);
 t_solution createSolution(int nb);
 void printMatrix(t_matrix *matrix);
+char *substr(char *str, int start, int end);
+char *trim(char *str);
 
 // INTERSECTION
 t_intersection createIntersection(t_matrix *realIntersection, t_matrix *normal, t_color *color, double dist, double reflectionRatio, t_object *obj);
