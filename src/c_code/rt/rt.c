@@ -99,6 +99,7 @@ static void createStaticConfig(t_config *c) {
 }
 
 void updateConfig(t_config *config, char *copyBook) {
+    // Image config
     char *height = substr(copyBook, 0, 6);
     char *width = substr(copyBook, 6, 12);
     char *antiAliasing = substr(copyBook, 12, 13);
@@ -106,10 +107,57 @@ void updateConfig(t_config *config, char *copyBook) {
     config->height = atoi(height);
     config->width = atoi(width);
     config->antiAliasing = atoi(antiAliasing);
+    // Filter + 20
 
     free(height);
     free(width);
     free(antiAliasing);
+
+    // Point of vue of camera
+    char *x = substr(copyBook, 33, 39);
+    char *y = substr(copyBook, 39, 45);
+    char *z = substr(copyBook, 45, 51);
+
+    config->camera.pointOfVue.tab[0][0] = atof(x);
+    config->camera.pointOfVue.tab[0][1] = atof(y);
+    config->camera.pointOfVue.tab[0][2] = atof(z);
+
+    free(x);
+    free(y);
+    free(z);
+
+    // Direction of camera
+    x = substr(copyBook, 51, 57);
+    y = substr(copyBook, 57, 63);
+    z = substr(copyBook, 63, 69);
+
+    config->camera.direction.tab[0][0] = atof(x);
+    config->camera.direction.tab[0][1] = atof(y);
+    config->camera.direction.tab[0][2] = atof(z);
+
+    free(x);
+    free(y);
+    free(z);
+
+    // Up of camera
+    x = substr(copyBook, 69, 75);
+    y = substr(copyBook, 75, 81);
+    z = substr(copyBook, 81, 87);
+
+    config->camera.up.tab[0][0] = atof(x);
+    config->camera.up.tab[0][1] = atof(y);
+    config->camera.up.tab[0][2] = atof(z);
+
+    free(x);
+    free(y);
+    free(z);
+
+    // Angle of the camera
+    char *angle = substr(copyBook, 87, 90);
+    config->camera.angle = atoi(angle);
+    free(angle);
+
+    updateCamera(&config->camera, config->height, config->width);
 }
 
 static t_listIntersection getIntersections(t_line *ray) {

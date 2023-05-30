@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import createModule from '../../../c_code/rt/rt.mjs';
+import createModule from '../../../c_code/rt/t.mjs';
 import "./RayTracing.scss"
 import ImageForm from "./components/ImageForm";
 import CameraForm from "./components/CameraForm";
@@ -33,11 +33,12 @@ const RayTracingPage: React.FC<any> = () => {
     const loadImage = async (copyBook: string, load: boolean) => {
         if(image == '' || load == true) {
             const module: any = await createModule();
+            console.log(copyBook);
 
             // send copy book
             const utf8Encode = new TextEncoder();
             const bytes = utf8Encode.encode(copyBook);
-            const inputPtr = module._createBuffer(copyBook.length);
+            const inputPtr = module._malloc(copyBook.length);
             module.HEAPU8.set(bytes, inputPtr);
 
             // get image base64 encoded
@@ -47,6 +48,9 @@ const RayTracingPage: React.FC<any> = () => {
             stackArray.set(module.HEAPU8.subarray(outputPtr, Number(outputPtr) + base64Size));
             const utf8Decode = new TextDecoder();
             const msg = utf8Decode.decode(stackArray);
+
+            module._free(inputPtr);
+            module._free(outputPtr);
 
             setImage(msg);
         }
