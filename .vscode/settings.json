@@ -18,6 +18,8 @@
         "ranges": "c",
         "*.tcc": "c",
         "memory": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "queue": "c",
+        "__locale": "c"
     }
 }

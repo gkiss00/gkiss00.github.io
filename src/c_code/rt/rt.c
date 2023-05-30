@@ -1,7 +1,6 @@
 #include "rt.h"
 
 t_config config;
-t_object sp;
 
 static char *base64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static char base64_padding = '=';
@@ -65,6 +64,7 @@ static char *saver(const t_config *config, t_color **pixels)
     for (int y = 0; y < config->height; ++y)
         free(pixels[y]);
     free(pixels);
+    free(config->objects);
 
 #ifdef MAIN
     return NULL;
@@ -92,10 +92,6 @@ static void createStaticConfig(t_config *c) {
     c->camera = createCamera(&pointOfVue, &direction, &up, 90);
     updateCamera(&c->camera, c->height, c->width);
     c->nbObj = 1;
-    c->objects = &sp;
-    sp.color = createColorRGBA(1, 0, 0, 1);
-    c->objects[0].transform = createTransform();
-    updateTransform(&sp, 0, 0, 0, 1, 1, 1, 0, 0, 0);
 }
 
 void updateConfig(t_config *config, char *copyBook) {
@@ -158,6 +154,118 @@ void updateConfig(t_config *config, char *copyBook) {
     free(angle);
 
     updateCamera(&config->camera, config->height, config->width);
+
+    // Objects
+    char *nbOfObjects = substr(copyBook, 90, 93);
+    config->nbObj = atoi(nbOfObjects);
+    free(nbOfObjects);
+
+    int index = 93;
+    for (int i = 0; i < config->nbObj; ++i) {
+        char *type = substr(copyBook, index, index + 10);
+        index += 10;
+        // SHOULD BE A MAP (linked list)
+        t_object *object = createSphereHeap();
+        if(strcmp(type, SPHERE_STR) == 0) {
+            object = createSphereHeap();
+        }
+        // SHOULD BE A MAP (linked list)
+        int nbOfValues = 1;
+        if(strcmp(type, SPHERE_STR) == 0) {
+            nbOfValues = 1;
+        }
+        for(int j = 0; j < nbOfValues; ++j) {
+            char *value = substr(copyBook, index, index + 6);
+            index += 6;
+            double v = atof(value);
+            free(value);
+            object->values[j] = v;
+        }
+        // translation
+        x = substr(copyBook, index, index + 6);
+        index += 6;
+        y = substr(copyBook, index, index + 6);
+        index += 6;
+        z = substr(copyBook, index, index + 6);
+        index += 6;
+
+        double translationX = atof(x);
+        double translationY = atof(y);
+        double translationZ = atof(z);
+
+        free(x);
+        free(y);
+        free(z);
+
+        // scaling
+        x = substr(copyBook, index, index + 6);
+        index += 6;
+        y = substr(copyBook, index, index + 6);
+        index += 6;
+        z = substr(copyBook, index, index + 6);
+        index += 6;
+
+        double scalingX = atof(x);
+        double scalingY = atof(y);
+        double scalingZ = atof(z);
+        
+        free(x);
+        free(y);
+        free(z);
+
+        // rotation
+        x = substr(copyBook, index, index + 6);
+        index += 6;
+        y = substr(copyBook, index, index + 6);
+        index += 6;
+        z = substr(copyBook, index, index + 6);
+        index += 6;
+
+        double rotationX = atof(x);
+        double rotationY = atof(y);
+        double rotationZ = atof(z);
+        
+        free(x);
+        free(y);
+        free(z);
+
+        object->transform = createTransform();
+        updateTransform(
+            object, 
+            translationX, 
+            translationY, 
+            translationZ, 
+            scalingX, 
+            scalingY, 
+            scalingZ, 
+            rotationX,
+            rotationY, 
+            rotationZ
+        );
+
+        // object color
+        char *red = substr(copyBook, index, index + 3);
+        index += 3;
+        char *green = substr(copyBook, index, index + 3);
+        index += 3;
+        char *blue = substr(copyBook, index, index + 3);
+        index += 3;
+        char *alpha = substr(copyBook, index, index + 3);
+        index += 3;
+
+        object->color.r = (double)atoi(red) / 255;
+        object->color.g = (double)atoi(green) / 255;
+        object->color.b = (double)atoi(blue) / 255;
+        object->color.a = (double)atoi(alpha) / 255;
+
+        free(red);
+        free(green);
+        free(blue);
+        free(alpha);
+
+        // ADD OBJECT TO LIST
+        config->objects = object;
+    }
 }
 
 static t_listIntersection getIntersections(t_line *ray) {
@@ -230,7 +338,6 @@ static void addPixelColor(int x, int y, t_color *pixelColor) {
 
 EMSCRIPTEN_KEEPALIVE
 char *rt(char *copyBook) {
-    sp = createSphere(10);
     createStaticConfig(&config);
     updateConfig(&config, copyBook);
     t_color **pixels = malloc(config.height * sizeof(t_color*));

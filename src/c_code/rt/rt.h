@@ -15,6 +15,7 @@
 #define EPSILON 0.000001
 
 #define SPHERE 1
+#define SPHERE_STR "SPHERE"
 
 #define TO_LOCAL 1
 #define TO_REAL 2
@@ -194,6 +195,7 @@ void updateTransform(
 
 // sphere
 t_object createSphere(double radius);
+t_object *createSphereHeap();
 void hitSphere(t_object *sphere, t_line *ray, t_listIntersection *list);
 
 

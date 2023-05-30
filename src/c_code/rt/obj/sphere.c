@@ -9,6 +9,13 @@ t_object createSphere(double radius) {
     return sphere;
 }
 
+t_object *createSphereHeap() {
+    t_object *sphere = malloc(sizeof(t_object));
+    sphere->type = SPHERE;
+    sphere->values[0] = 0;
+    return sphere;
+}
+
 void hitSphere(t_object *sphere, t_line *ray, t_listIntersection *list) {
     t_line localRay = applyLine(&(sphere->transform), ray, TO_LOCAL);
     normalize(&(localRay.vector));
