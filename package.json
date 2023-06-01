@@ -19,6 +19,7 @@
     "react-router": "^6.11.1",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+    "three": "^0.153.0",
     "typescript": "*",
     "web-vitals": "^2.1.0"
   },
@@ -48,6 +49,7 @@
     "os": false
   },
   "devDependencies": {
+    "@types/three": "^0.152.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint-config-standard-with-typescript": "^22.0.0",
     "eslint-plugin-import": "^2.25.2",
