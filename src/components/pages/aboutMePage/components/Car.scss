@@ -1,0 +1,192 @@
+.car {
+    height: 150px;
+    width: 250px;
+    background-color: var(--color-about-me-oxford-blue);
+    position: relative;
+    animation: ride 10s infinite linear;
+}
+
+@keyframes ride {
+    from { transform: translateX(0);}
+    to { transform: translateX(100vw);}
+}
+
+.carBodyFront {
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    top: 55px;
+    left: 125px;
+    background-color: var(--color-about-me-ultra-violet);
+}
+
+.carBodyFront:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 7px solid var(--color-about-me-oxford-blue);
+    border-left: 50px solid var(--color-about-me-ultra-violet);
+    width: 0;
+}
+
+.carBodyBack {
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    top: 55px;
+    left: 25px;
+    background-color: var(--color-about-me-ultra-violet);
+    transform: rotateY(180deg);
+}
+
+.carBodyBack:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 3px solid var(--color-about-me-oxford-blue);
+    border-left: 50px solid var(--color-about-me-ultra-violet);
+    width: 0;
+}
+
+.carTopFront {
+    height: 40px;
+    width: 50px;
+    position: absolute;
+    top: 35px;
+    left: 125px;
+    background-color: var(--color-about-me-ultra-violet);
+}
+
+.carTopFront:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 20px solid var(--color-about-me-oxford-blue);
+    border-left: 30px solid var(--color-about-me-ultra-violet);
+    width: 0;
+}
+
+.carTopBack {
+    height: 40px;
+    width: 50px;
+    position: absolute;
+    top: 35px;
+    left: 75px;
+    background-color: var(--color-about-me-ultra-violet);
+    transform: rotateY(180deg);
+}
+
+.carTopBack:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 20px solid var(--color-about-me-oxford-blue);
+    border-left: 20px solid var(--color-about-me-ultra-violet);
+    width: 0;
+}
+
+.carFrontWindow {
+    height: 20px;
+    width: 50px;
+    position: absolute;
+    top: 35px;
+    left: 125px;
+    background-color:  var(--color-about-me-cool-grey);
+}
+
+.carFrontWindow:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 20px solid var(--color-about-me-oxford-blue);
+    border-left: 30px solid var(--color-about-me-cool-grey);
+    width: 0;
+}
+
+.carWheel {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: var(--color-about-me-ultra-violet);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carBackWheel {
+    position: absolute;
+    top: 80px;
+    left: 65px;
+}
+
+.carFrontWheel {
+    position: absolute;
+    top: 80px;
+    left: 155px;
+}
+
+.carRim {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: var(--color-about-me-cool-grey);
+}
+
+.carFrontRim {
+    animation: moveRim 2s linear 0.5s infinite forwards;
+}
+
+.carBackRim {
+    animation: moveRim 2s linear 0s infinite forwards;
+}
+
+@keyframes moveRim {
+    0% {
+        transform: translateY(calc(2px * sin(0deg))) translateX(calc(2px * cos(0deg)));
+    }
+    10% {
+        transform: translateY(calc(2px * sin(36deg))) translateX(calc(2px * cos(36deg)));
+    }
+    20% {
+        transform: translateY(calc(2px * sin(72deg))) translateX(calc(2px * cos(72deg)));
+    }
+    30% {
+        transform: translateY(calc(2px * sin(108deg))) translateX(calc(2px * cos(108deg)));
+    }
+    40% {
+        transform: translateY(calc(2px * sin(144deg))) translateX(calc(2px * cos(144deg)));
+    }
+    50% {
+        transform: translateY(calc(2px * sin(180deg))) translateX(calc(2px * cos(180deg)));
+    }
+    60% {
+        transform: translateY(calc(2px * sin(216deg))) translateX(calc(2px * cos(216deg)));
+    }
+    70% {
+        transform: translateY(calc(2px * sin(252deg))) translateX(calc(2px * cos(252deg)));
+    }
+    80% {
+        transform: translateY(calc(2px * sin(288deg))) translateX(calc(2px * cos(288deg)));
+    }
+    90% {
+        transform: translateY(calc(2px * sin(324deg))) translateX(calc(2px * cos(324deg)));
+    }
+    100% {
+        transform: translateY(calc(2px * sin(360deg))) translateX(calc(2px * cos(360deg)));
+    }
+    
+}
+
+.carSparePot {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    background-color: var(--color-about-me-ultra-violet);
+}

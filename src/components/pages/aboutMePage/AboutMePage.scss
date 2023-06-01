@@ -1,54 +1,25 @@
 .aboutMePage {
     min-height: 100vh;
     width: 100vw;
-    background-color: var(--color-white);
-    
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.aboutMeSection {
-    width: 100vw;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.pacrousSection {
-    width: 100vw;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
-}
-
-
-
-//.aboutMePage p{
-//    color: var(--color-dark-black);
-//}
-
-.profilePicure {
-    height: 400px;
-    width: 400px;
-    border-radius: 50%;
-    border: 5px grey solid;
-}
-
-#aboutMeDescription {
-    max-width: 1000px;
-}
-
-.aboutMePage {
     display: flex;
     align-items: start;
     flex-direction: column;
     padding: 50px;
     color: var(--color-snow-white);
     background-color: var(--color-about-me-oxford-blue);
+}
+
+.amAboutMe {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.amAboutMeText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 50px;
 }
 
 .amTitle {
@@ -60,6 +31,78 @@
     max-width: 600px;
     font-size: 20px;
     margin: 20px;
+}
+
+.amSkillBox {
+    margin-top: -100px;
+    margin-bottom: -100px;
+    position: relative;
+}
+
+.amSkills {
+    opacity: 1;
+    width: 800px;
+    height: 800px;
+    top: 0px;
+    right: 0px;
+    position: relative;
+    border: 7px var(--color-about-me-ultra-violet) solid;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    animation:  turn 30s forwards 0s infinite linear;
+}
+
+@keyframes turn {
+    from {transform: rotateX(75deg) rotateZ(0deg) ;}
+    to {transform: rotateX(75deg) rotateZ(360deg) ;}
+}
+
+.amSkillShadow {
+    filter: blur(20px);
+    width: 800px;
+    height: 800px;
+    z-index: 2;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    border-radius: 50%;
+    transform:  translateY(20px) rotateX(75deg);
+    animation:  lighting 8s forwards 0s infinite linear;
+}
+
+@keyframes lighting {
+    0% {
+        box-shadow: 0px 0px 0px var(--color-about-me-ultra-violet);
+    }
+    13% {
+        box-shadow: 0px 0px 0px var(--color-about-me-ultra-violet);
+    }
+    25% {
+        box-shadow: 0px 0px 35px var(--color-about-me-ultra-violet),
+        inset 0px 0px 25px var(--color-about-me-ultra-violet);
+    }
+    50% {
+        box-shadow: 0px 0px 70px var(--color-about-me-ultra-violet),
+                    inset 0px 0px 70px var(--color-about-me-ultra-violet);
+    }
+    75% {
+        box-shadow: 0px 0px 35px var(--color-about-me-ultra-violet),
+        inset 0px 0px 25px var(--color-about-me-ultra-violet);
+    }
+    88% {
+        box-shadow: 0px 0px 0px var(--color-about-me-ultra-violet);
+    }
+    100% {
+        box-shadow: 0px 0px 0px var(--color-about-me-ultra-violet);
+    }
+}
+
+.amSkill {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    text-align: center;
+    position: absolute;
 }
 
 .amExperienceList {
@@ -102,40 +145,8 @@
     color: var(--color-about-me-rich-black);
 }
 
-.test {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    text-align: center;
-    position: absolute;
-    //border: 2px yellow solid;
-    //top: calc(175px + (200px * sin(45deg)));
-    //right: calc(175px + (200px * cos(45deg)));
-    //right: calc(200px * cos(45deg));
-    //transform: rotateX(-90deg) rotateY(-45deg);
-}
-
-.amSkills {
-    width: 800px;
-    height: 800px;
-    position: relative;
-    //display: flex;
-    //align-items: center;
-    //justify-content: center;
-    border: 7px var(--color-about-me-ultra-violet) solid;
-    border-radius: 50%;
-    transform-style: preserve-3d;
-    transform: rotateX(70deg);
-    animation: turn 6s forwards 0s infinite linear;
-    animation-play-state: paused;
-}
-
-.amSkills:hover {
-    animation: turn 6s forwards 0s infinite linear;
-    //animation-play-state: paused;
-}
-
-@keyframes turn {
-    from {transform: rotateX(70deg) rotateZ(0deg) ;}
-    to {transform: rotateX(70deg) rotateZ(360deg) ;}
+.amLicense {
+    font-size: 30px;
+    margin-left: 20px;
+    margin-Top: 30px;
 }
